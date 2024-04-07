@@ -1,0 +1,10 @@
+client_secret                = ""
+client_id                    = ""
+tenant_id                    = ""
+subscription_id              = ""
+resource_group_name          = "my_rg"
+virtual_network_name         = "my_vnet"
+virtual_network_address_space = ["10.0.0.0/16"]
+location                     = "East US"
+subnet_default_address_prefixes     = ["10.0.1.0/24"]
+subnet_experiment_address_prefixes  = ["10.0.2.0/24"]
