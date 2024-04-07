@@ -1,0 +1,12 @@
+resource_group_name             = "my-resource-group"
+location                        = "West Europe"
+virtual_network_name            = "my-vnet"
+virtual_network_address_space   = ["10.0.0.0/16"]
+subnet_name                     = "AzureFirewallSubnet"
+subnet_address_prefixes         = ["10.0.1.0/24"]
+public_ip_name                  = "my-public-ip"
+public_ip_allocation_method     = "Static"
+public_ip_sku                   = "Standard"
+firewall_name                   = "my-firewall"
+firewall_sku_name               = "AZFW_VNet"
+firewall_sku_tier               = "Standard"
