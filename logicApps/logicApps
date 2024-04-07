@@ -1,0 +1,28 @@
+
+provider "azurerm" {
+  features {}
+  client_secret = ""
+client_id = ""
+tenant_id = ""
+  subscription_id = ""
+}
+
+resource "azurerm_logic_app_workflow" "example" {
+  name                = "${var.prefix}-logicapp"
+  location            = "East US"  
+  resource_group_name = "experiment32"  
+}
+
+resource "azurerm_logic_app_trigger_recurrence" "hourly" {
+  name         = "run-every-hour"
+  logic_app_id = azurerm_logic_app_workflow.example.id
+  frequency    = "Hour"
+  interval     = 1
+}
+
+resource "azurerm_logic_app_action_http" "main" {
+  name         = "clear-stable-objects"
+  logic_app_id = azurerm_logic_app_workflow.example.id
+  method       = "DELETE"
+  uri          = "http://example.com/clear-stable-objects"
+}
