@@ -1,1 +1,42 @@
+name: Create Azure Container Registry
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: success
+
+permissions:
+  id-token: write   # Ensure write permission for id-token is enabled
+  contents: read
+
+jobs:
+  create-acr:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Azure Login using OIDC
+      - name: Azure Login
+        uses: azure/login@v1.4.6
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Step 3: Create the Azure Container Registry
+      - name: Create Azure Container Registry (ACR)
+        run: |
+          RESOURCE_GROUP="wab-1"
+          REGISTRY_NAME="acrnarsimha"  # Set your desired registry name
+          LOCATION="eastus"  # Set the location for the ACR
+
+          # Create the Azure Container Registry
+          az acr create \
+            --resource-group $RESOURCE_GROUP \
+            --name $REGISTRY_NAME \
+            --sku Basic \
+            --location $LOCATION
